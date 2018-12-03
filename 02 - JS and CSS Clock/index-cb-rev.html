@@ -62,11 +62,41 @@
       background: black;
       position: absolute;
       top: 50%;
+      transform-origin: 100%;
     }
 
   </style>
 
   <script>
+    function rotateHands() {
+        let timeNow = new Date();
+        // console.log(timeNow);
+        let hourNow = timeNow.getHours();
+        // console.log(hourNow);
+        let minuteNow = timeNow.getMinutes();
+        // console.log(minuteNow);
+        let secondsNow = timeNow.getSeconds();
+        // console.log(secondsNow);
+
+        let hourDegree = 30;
+        let minSecDegree = 6;
+
+        if (hourNow > 12) hourNow -= 12;
+        // console.log(hourNow);
+        let hourRot = (hourNow * hourDegree) + 90;
+        let minRot = (minuteNow * minSecDegree) + 90;
+        let secRot = (secondsNow * minSecDegree) + 90;
+
+        const secHand = document.querySelector(".second-hand");
+        secHand.style.transform = "rotate(" + secRot + "deg)";
+    
+        const minHand = document.querySelector(".min-hand");
+        minHand.style.transform = "rotate(" + minRot + "deg)";
+        
+        const hourHand = document.querySelector(".hour-hand");
+        hourHand.style.transform = "rotate(" + hourRot + "deg)";
+    }
+    window.setInterval(rotateHands, 1000);
 
 
   </script>
