@@ -59,35 +59,6 @@
 
 <script>
 
-/****************** resources ******************
-http://keycode.info
-shows the keycodes of the key typed
-******************            ******************/
-
-
-// refactored function 
-function playSound(e) {
-  const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
-  const key = document.querySelector(`.key[data-key="${e.keyCode}"]`);
-  if (!audio) return; // stop function
-  audio.currentTime = 0; // rewind to the start
-  // console.log(audio);
-  audio.play();
-  key.classList.add("playing");
-}
-
-// need to add a transition end event 
-// first, get an array of all the keys that we're traacking
-const keys = document.querySelectorAll(".key");
-// keys is a NodeList , not an array
-
-function removeTransition(e) {
-  if (e.propertyName !== "transform") return; // skip
-  console.log(e.propertyName);
-  this.classList.remove("playing");
-}
-keys.forEach(key => key.addEventListener('transitionend', removeTransition));
-window.addEventListener('keydown', playSound); 
 </script>
 
 
