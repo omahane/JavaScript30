@@ -18,14 +18,30 @@
     <input id="base" type="color" name="base" value="#ffc600">
   </div>
 
-  <img src="https://source.unsplash.com/7bwQXzbF6KE/800x500">
+  <img src="http://placekitten.com/800/500">
 
   <style>
+    /* 
+    :root is pseudo-selector that matches html, but its specificity is higher
+    https://developer.mozilla.org/en-US/docs/Web/CSS/:root
+    */
+    :root{
+      --base: #ffc600;
+      --spacing: 20px;
+      --blur: 10px;
+    }
 
     /*
       misc styles, nothing to do with CSS variables
     */
-
+    img {
+      padding: var(--spacing);
+      background: var(--base);
+      filter: blur(var(--blur));
+    }
+    .hl {
+      color: var(--base);
+    }
     body {
       text-align: center;
       background: #193549;
@@ -45,6 +61,25 @@
   </style>
 
   <script>
+    // creates a NodeList--not an array
+    // NodeList has many fewer methods than an array
+    const inputs = document.querySelectorAll('.controls input');
+
+    function handleUpdate() {
+      const suffix = this.dataset.sizing || "";
+      document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix);
+      // inputs have values that can change, that's where this.value get's its number
+      console.log(suffix);
+      // console.log(this.value);
+      // console.log(this.dataset); // dataset is the object of all the data- values
+    }
+    // NodeList recently supports the forEach method
+    inputs.forEach(input => input.addEventListener('change', handleUpdate));
+    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+
+    // Data attributes in JavaScript are custom attributes that you can use in js
+    // data-sizing="px" is one such example
+
   </script>
 
 </body>
